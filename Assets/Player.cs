@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,6 +6,10 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField] NavMeshAgent agent;
+
+    public Transform[] destinations;
+    public int randomNum;
+
 
     private void Awake()
     {
@@ -17,11 +22,29 @@ public class Player : MonoBehaviour
     {
         //SetDestination() 함수를 사용해서 클릭한 위치로 플레이어를 보내기.
         agent.SetDestination(new Vector3(0, 0, 0));
+
+        RandomNumber();
+
+
+        MoveTo();
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (agent.pathPending == false && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            if (agent.hasPath == false || agent.velocity.sqrMagnitude == 0)
+            {
+                //Debug.Log("도착");
+
+            }
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -44,6 +67,18 @@ public class Player : MonoBehaviour
     //hit.point에 도착하면 "도착"로그 출력하기
     //맵 상에 캐릭터가 이동할 수 있는 곳을 정해서 랜덤하게 이동할 수 있게 처리해주세요.
     //캐릭터가 그냥 이동 중일때 만약 클릭이 되면 클릭된 곳을 먼저 이동하게 처리
+
+    public int RandomNumber()
+    {
+        int randomNum = Random.Range(0, destinations.Length-1);
+        
+        return randomNum;
+    }
+
+    public void MoveTo()
+    {
+        agent.SetDestination(destinations[randomNum].position);
+    }
 
 
 }
