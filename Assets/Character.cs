@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class Player : MonoBehaviour
+public class Character : MonoBehaviour
 {
 
     [SerializeField] NavMeshAgent agent;
@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     public bool arrived;
 
-    public float waitTime = 2f;
+    //public float waitTime;
 
 
     private void Awake()
@@ -29,9 +29,7 @@ public class Player : MonoBehaviour
         //SetDestination() 함수를 사용해서 클릭한 위치로 플레이어를 보내기.
         agent.SetDestination(new Vector3(0, 0, 0));
 
-        targetIdx = RandomNumber();
-        
-        MoveTo();
+        NextMove();
 
 
 
@@ -57,13 +55,8 @@ public class Player : MonoBehaviour
                     //Arrived 함수 호출
 
                     arrived = true;
-                    destinations[targetIdx].GetComponent<Destination>().Arrived();
+                    destinations[targetIdx].GetComponent<Destination>().Arrived(this);
 
-
-                    //targetIdx = RandomNumber();
-                    //MoveTo();
-
-                    StartCoroutine(WaitAndMove(waitTime));
 
 
                 }
@@ -100,7 +93,8 @@ public class Player : MonoBehaviour
 
         while (true)
         {
-            if (randomNum != targetIdx)
+            // 같은 장소 가는것 방지하는 코드 + 갈려고 하는 지역의 character 변수가 차지되어 있으면 다시 숫자를 뽑도록
+            if (randomNum != targetIdx && destinations[randomNum].GetComponent<Destination>().character== null)
                 break;
             else 
             {
@@ -119,14 +113,11 @@ public class Player : MonoBehaviour
         agent.SetDestination(destinations[targetIdx].position);
     }
 
-    IEnumerator WaitAndMove(float waitTime)
+    public void NextMove()
     {
-        yield return new WaitForSeconds(waitTime);
-
         targetIdx = RandomNumber();
         MoveTo();
     }
-
 
 
 }

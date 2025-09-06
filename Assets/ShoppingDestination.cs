@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class ShoppingDestination : Destination
 {
-    public override void Arrived()
-    {
-
-    }
+    
 }

@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class CollectingDestination : Destination
 {
-    public override void Arrived()
-    {
-
-    }
+    
 }

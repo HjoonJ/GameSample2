@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class FishingDestination : Destination
 {
-    public override void Arrived()
-    {
-        
-    }
-
-
+    
 
 
 }
