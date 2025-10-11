@@ -6,12 +6,11 @@ using System.Collections;
 public class Character : MonoBehaviour
 {
 
-    [SerializeField] NavMeshAgent agent;
-
-    public Transform[] destinations; //목적지들
-    public int targetIdx; //가야되는 목적지의 인덱스
+    [SerializeField] public NavMeshAgent agent;
 
     public bool arrived;
+
+    public Destination des; // 목적지 자체
 
     //public float waitTime;
 
@@ -25,7 +24,7 @@ public class Character : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        targetIdx = -1;
+        //targetIdx = -1;
         //SetDestination() 함수를 사용해서 클릭한 위치로 플레이어를 보내기.
         agent.SetDestination(new Vector3(0, 0, 0));
 
@@ -55,7 +54,7 @@ public class Character : MonoBehaviour
                     //Arrived 함수 호출
 
                     arrived = true;
-                    destinations[targetIdx].GetComponent<Destination>().Arrived(this);
+                    des.Arrived(this);
 
 
 
@@ -87,35 +86,25 @@ public class Character : MonoBehaviour
         }
     }
     
-    public int RandomNumber()
-    {
-        int randomNum = Random.Range(0, destinations.Length);
-
-        while (true)
-        {
-            // 같은 장소 가는것 방지하는 코드 + 갈려고 하는 지역의 character 변수가 차지되어 있으면 다시 숫자를 뽑도록
-            if (randomNum != targetIdx && destinations[randomNum].GetComponent<Destination>().character== null)
-                break;
-            else 
-            {
-                randomNum = Random.Range(0, destinations.Length);
-            }
-        }
-        
-
-
-        return randomNum;
-    }
 
     public void MoveTo()
     {
         arrived = false;
-        agent.SetDestination(destinations[targetIdx].position);
+        agent.SetDestination(des.transform.position);
+
+        des.Taken(this);
+
+        
+
     }
 
+    // 캐릭터가 목적지를 정해야될 때!
     public void NextMove()
     {
-        targetIdx = RandomNumber();
+        //DestinationManager로부터 목적지를 전달받기.
+        des = DestinationManager.Instance.GetEmptyDestination();
+
+
         MoveTo();
     }
 
