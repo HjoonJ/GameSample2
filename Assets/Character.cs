@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IChangedGameMode
 {
 
     [SerializeField] public NavMeshAgent agent;
@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        GameManager.changedGameModeListener.Add(this);
     }
 
 
@@ -108,5 +109,8 @@ public class Character : MonoBehaviour
         MoveTo();
     }
 
+   public void ChangedGameMode(GameMode gm)
+    {
 
+    }
 }

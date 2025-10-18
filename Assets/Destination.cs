@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Destination : MonoBehaviour
+public class Destination : MonoBehaviour, IChangedGameMode
 {
     public string desName;
 
@@ -10,6 +10,12 @@ public class Destination : MonoBehaviour
 
     public Character character;
     public bool isUsing;
+
+    public void Awake()
+    {
+        GameManager.changedGameModeListener.Add(this);
+    }
+
 
     public virtual bool CanTake()
     {
@@ -29,8 +35,10 @@ public class Destination : MonoBehaviour
 
     public virtual void Arrived(Character c)
     {
+
         character = c;
         isUsing = true;
+
 
         Debug.Log($"Destination Arrived() {c.gameObject.name} {desName} µµÂø");
         //¸ñÀûÁö µµÂø ½Ã 
@@ -59,7 +67,10 @@ public class Destination : MonoBehaviour
         Debug.Log($"Destination Leave() {c.gameObject.name}");
     }
 
+    public virtual void ChangedGameMode(GameMode gm)
+    {
 
+    }
 }
 
 

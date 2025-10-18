@@ -11,6 +11,8 @@ public class DestinationManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        Time.timeScale = 3.0f;
+
 
         targetIdx = -1;
         destinations = FindObjectsOfType<Destination>();

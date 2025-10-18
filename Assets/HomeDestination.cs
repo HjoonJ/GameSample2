@@ -25,7 +25,7 @@ public class HomeDestination : Destination
         Debug.Log($"{desName} µµÂø");
 
 
-        StartCoroutine(CoAction(waitTime));
+        //StartCoroutine(CoAction(waitTime));
 
 
     }
