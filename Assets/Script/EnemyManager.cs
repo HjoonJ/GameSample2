@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyManager : MonoBehaviour, IChangedGameMode
 {
+
+    
     private void Awake()
     {
         
