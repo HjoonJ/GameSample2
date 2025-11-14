@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class Character : MonoBehaviour, IChangedGameMode
+public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
 {
 
     [SerializeField] public NavMeshAgent agent;
@@ -11,6 +11,8 @@ public class Character : MonoBehaviour, IChangedGameMode
     public bool arrived;
 
     public Destination des; // 목적지 자체
+
+    public Transform Transform => transform; // 프로퍼티
 
     //public float waitTime;
 
@@ -110,6 +112,11 @@ public class Character : MonoBehaviour, IChangedGameMode
     }
 
    public void ChangedGameMode(GameMode gm)
+    {
+
+    }
+
+    public void TakeDamage(float damage)
     {
 
     }
