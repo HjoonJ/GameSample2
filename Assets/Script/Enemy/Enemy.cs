@@ -32,9 +32,10 @@ public class Enemy : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         animEvent = GetComponentInChildren<EnemyAnimEvent>();
         
-        // ()가 포함되고 안되고 에 대한 이해 필요! 
+        // ()가 포함되고 안되고 에 대한 이해 필요! () 는 함수의 결과값을 넣는 것이기 때문. 지금은 그냥 주소값만 넣는것.
         animEvent.startAttackListener = StartAttack;
         animEvent.endAttackListener = EndAttack;
+        animEvent.shootingTimingListener = ShootingTiming;
     }
 
 
@@ -143,6 +144,7 @@ public class Enemy : MonoBehaviour
         agent.isStopped = true;
         animator.SetTrigger("Attack");
         
+        // 공격 방향
         transform.forward = (target.Transform.position - transform.position).normalized;
     }
 
@@ -154,6 +156,12 @@ public class Enemy : MonoBehaviour
 
     //공격 애니메이션 끝날 때
     public virtual void EndAttack()
+    {
+        SetState(EnemyState.Idle);
+    }
+
+    //총알이 딱 발사되는 애니메이션 실행 시
+    public virtual void ShootingTiming()
     {
 
     }

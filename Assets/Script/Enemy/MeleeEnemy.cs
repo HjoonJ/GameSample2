@@ -28,8 +28,6 @@ public class MeleeEnemy : Enemy
 
             target.TakeDamage(10);
         }
-
-        SetState(EnemyState.Idle);
     }
 
     
