@@ -7,6 +7,7 @@ using UnityEngine.TextCore.Text;
 public class Enemy : MonoBehaviour
 {
     public EnemyState state;
+    public EnemyKind kind;
     
     public float maxHp;
     public float curHp;
@@ -187,5 +188,12 @@ public enum EnemyState
     Idle,
     Approaching,
     Attack
+
+}
+
+public enum EnemyKind
+{
+    Melee,
+    Ranged
 
 }

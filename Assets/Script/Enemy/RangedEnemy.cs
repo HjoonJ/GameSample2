@@ -20,7 +20,8 @@ public class RangedEnemy : Enemy
 
         //총알이 날아가는 것은 EnemyBullet 에서 적용.
 
-        bulletObject.GetComponent<EnemyBullet>().direction = this.gameObject.transform.forward;
+        bulletObject.GetComponent<EnemyBullet>().Shoot(this.gameObject.transform.forward, attackPower);
+
     }
 
 }
