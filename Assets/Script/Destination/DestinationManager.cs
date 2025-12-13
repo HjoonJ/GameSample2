@@ -11,7 +11,9 @@ public class DestinationManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Time.timeScale = 3.0f;
+        
+        //게임 배속 올리기
+        //Time.timeScale = 3.0f;
 
 
         targetIdx = -1;

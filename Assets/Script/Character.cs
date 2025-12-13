@@ -14,6 +14,12 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
 
     public Transform Transform => transform; // 프로퍼티
 
+    //정석
+    //public Transform Transform
+    //{
+    //    get { return transform; }
+    //}
+
     //public float waitTime;
 
 

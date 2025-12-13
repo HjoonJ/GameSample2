@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
     
     public float maxHp;
     public float curHp;
+    
+    // 카운팅 횟수에 따른 적의 능력치 상승 (밀리 - 10% 레인지드 - 5%)
+    public float hpPercentUpgrade;
+    
     public float moveSpeed;
     
     public float attackRange;
@@ -26,6 +30,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] public NavMeshAgent agent;
 
     public IEnemyTarget target;
+
+    //적이 생성 후 2초 뒤에 죽기
+    public float dyingTime;
+    public float timer;
+
 
     private void Awake()
     {
@@ -47,6 +56,7 @@ public class Enemy : MonoBehaviour
         attackCoolTime = 0f;
 
 
+
     }
 
     public void SetState(EnemyState state)
@@ -60,6 +70,16 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         attackCoolTime += Time.deltaTime;
+
+        timer += Time.deltaTime;
+
+        if (timer > dyingTime)
+        {
+            Destroy(gameObject);
+            GameManager.Instance.liveEnemyCount--;
+
+            return;
+        }
 
         if (state == EnemyState.Idle)
         {
