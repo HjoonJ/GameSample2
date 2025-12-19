@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public int enemySum;
 
     // 날짜 카운팅
-    public int dateGrading;
+    public int date;
 
     public void Awake()
     {
@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
+        date = 0;
+
         SetMode(GameMode.Normal);
 
         StartCoroutine(ChangingGameMode());
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
 
             // 다시 노말 모드로 전환
             SetMode(GameMode.Normal);
-            dateGrading++;
+            date++;
             inBattleMode = false;
 
         }
@@ -97,8 +99,8 @@ public class GameManager : MonoBehaviour
 
         GameObject rangedPortal = Instantiate(rangedPortalPrefab, randomPos, Quaternion.identity);
 
-        meleePortal.GetComponent<Portal>().SpawnEnemy();
-        rangedPortal.GetComponent<Portal>().SpawnEnemy();
+        meleePortal.GetComponent<Portal>().StartSpawnEnemy();
+        rangedPortal.GetComponent<Portal>().StartSpawnEnemy();
 
         enemySum = 0;
         int meleeEnemySum = meleePortal.GetComponent<Portal>().spawnCount;

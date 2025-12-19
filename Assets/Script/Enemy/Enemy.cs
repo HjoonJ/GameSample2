@@ -11,8 +11,9 @@ public class Enemy : MonoBehaviour
     
     public float maxHp;
     public float curHp;
+
     
-    // 카운팅 횟수에 따른 적의 능력치 상승 (밀리 - 10% 레인지드 - 5%)
+    // 카운팅 횟수에 따른 적의 능력치 상승 (밀리 - 5% 레인지드 - 3%)
     public float hpPercentUpgrade;
     
     public float moveSpeed;
@@ -55,6 +56,9 @@ public class Enemy : MonoBehaviour
 
         attackCoolTime = 0f;
 
+        maxHp = maxHp + maxHp * hpPercentUpgrade * GameManager.Instance.date;
+        
+        curHp = maxHp;
 
 
     }

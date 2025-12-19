@@ -157,6 +157,7 @@ MonoBehaviour:
   kind: 1
   maxHp: 10
   curHp: 10
+  hpPercentUpgrade: 3
   moveSpeed: 1
   attackRange: 2
   attackPower: 1
@@ -165,6 +166,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   animEvent: {fileID: 0}
   agent: {fileID: 0}
+  dyingTime: 2
+  timer: 0
   attackPoint: {fileID: 8467855175443630067}
   bulletPrefab: {fileID: 2849532746804563854, guid: 537151ead705861499fbb0c17a09775f, type: 3}
 --- !u!136 &8467760644014328459

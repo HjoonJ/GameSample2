@@ -8,10 +8,13 @@ public class Portal : MonoBehaviour
     public float spawnTime;
     
     public int enemyCounting = 0;
+    
+    //적이 몇명까지 생성될지
     public int spawnCount;
    
     
-    public void SpawnEnemy()
+    //적이 소환되기 시작할때
+    public void StartSpawnEnemy()
     {
         enemyCounting = 0;
         StartCoroutine(CoSpawn());

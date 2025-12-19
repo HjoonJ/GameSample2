@@ -1249,10 +1249,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMode: 0
   inBattleMode: 0
-  duration: 1
+  duration: 4
   meleePortalPrefab: {fileID: 7412091352778515143, guid: 01fd998a40011a443bff105f53900876, type: 3}
   rangedPortalPrefab: {fileID: 4062322770830459275, guid: b53b8b3a20d4a844c9845bc54c82c678, type: 3}
-  enemyCount: 0
+  liveEnemyCount: 0
+  spawnEnemyCount: 0
+  enemySum: 0
+  date: 0
 --- !u!1 &1490191312
 GameObject:
   m_ObjectHideFlags: 0

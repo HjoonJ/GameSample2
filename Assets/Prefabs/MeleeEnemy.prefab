@@ -396,6 +396,7 @@ MonoBehaviour:
   kind: 0
   maxHp: 10
   curHp: 10
+  hpPercentUpgrade: 5
   moveSpeed: 1
   attackRange: 0.5
   attackPower: 1
@@ -404,6 +405,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   animEvent: {fileID: 0}
   agent: {fileID: 2588090063832986410}
+  dyingTime: 2
+  timer: 0
   attackPoint: {fileID: 2618043114264595023}
   attackLength: 0.4
 --- !u!136 &8265867521088576808
