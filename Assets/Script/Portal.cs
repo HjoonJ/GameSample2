@@ -24,17 +24,21 @@ public class Portal : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(enemyPrefab,transform.position, Quaternion.identity);
+            if (enemyCounting == spawnCount)
+            {
+                break;
+            }
+
+            Enemy enemy = EnemyManager.Instance.GetEnemy(EnemyKind.Melee);
+            enemy.Spawn();
+            enemy.gameObject.transform.position = this.transform.position;
+            //Enemy enemy = Instantiate(enemyPrefab,transform.position, Quaternion.identity);
+            //EnemyManager.Instance.enemies.Add(enemy);
             enemyCounting++;
             
             GameManager.Instance.liveEnemyCount++;
             GameManager.Instance.spawnEnemyCount++;
 
-            if (enemyCounting == spawnCount)
-            {
-                break;
-            }
-            
             yield return new WaitForSeconds(spawnTime);
 
 

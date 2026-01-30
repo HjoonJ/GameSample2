@@ -19,8 +19,9 @@ public class GameManager : MonoBehaviour
     //옵저버 패턴
     public static List<IChangedGameMode> changedGameModeListener = new List<IChangedGameMode>();
 
-    public GameObject meleePortalPrefab;
-    public GameObject rangedPortalPrefab;
+    //모든 포탈은 여기에 담겨있음.
+    public List<Portal> portals = new List<Portal>();
+
 
     //실시간 적 카운팅
     public int liveEnemyCount;
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
     // 포탈에서 적들이 생성되게 처리
     // 생성된 적 카운팅
 
-    
+
     private void Start()
     {
         date = 0;
@@ -74,12 +75,14 @@ public class GameManager : MonoBehaviour
             SetMode(GameMode.Battle);
 
             inBattleMode = true;
-            EnemySpawn();
+            PortalSpawn();
             // 전투 중, 적이 모두 사라질 때까지 대기
             yield return StartCoroutine(CheckEnemiesCleared());
 
             // 다시 노말 모드로 전환
             SetMode(GameMode.Normal);
+            PortalInActivate();
+
             date++;
             inBattleMode = false;
 
@@ -87,25 +90,21 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void EnemySpawn()
+    public void PortalSpawn()
     {
         //float randumNumber = Random.Range(0f, 4f);
-        Vector3 randomPos = new Vector3 (Random.Range(0f, 4f), 0, Random.Range(0f, 4f));
-
-        GameObject meleePortal = Instantiate(meleePortalPrefab, randomPos, Quaternion.identity);
-
-        //randumNumber = Random.Range(0f, 4f);
-        randomPos = new Vector3(Random.Range(0f, 4f), 0, Random.Range(0f, 4f));
-
-        GameObject rangedPortal = Instantiate(rangedPortalPrefab, randomPos, Quaternion.identity);
-
-        meleePortal.GetComponent<Portal>().StartSpawnEnemy();
-        rangedPortal.GetComponent<Portal>().StartSpawnEnemy();
-
+        spawnEnemyCount = 0;
         enemySum = 0;
-        int meleeEnemySum = meleePortal.GetComponent<Portal>().spawnCount;
-        int rangedEnemySum = rangedPortal.GetComponent<Portal>().spawnCount;
-        enemySum = meleeEnemySum + rangedEnemySum;
+
+
+        for (int i = 0; i < portals.Count; i++)
+        {
+            Vector3 randomPos = new Vector3(Random.Range(0f, 4f), 0, Random.Range(0f, 4f));
+            portals[i].transform.position = randomPos;
+            portals[i].gameObject.SetActive(true);
+            portals[i].StartSpawnEnemy();
+            enemySum = enemySum + portals[i].spawnCount;
+        }
 
     }
 
@@ -144,8 +143,21 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void PortalInActivate()
+    {
+        for (int i = 0; i < portals.Count; i++)
+        {
+            portals[i].gameObject.SetActive(false);
+
+        }
+    }
+
+
+
 
 }
+
+
 
 public enum GameMode
 {

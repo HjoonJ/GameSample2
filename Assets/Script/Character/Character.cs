@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System.Diagnostics.Contracts;
 
 public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
 {
@@ -13,6 +14,9 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
     public Destination des; // 목적지 자체
 
     public Transform Transform => transform; // 프로퍼티
+
+    public float maxHp;
+    public float curHp;
 
     //정석
     //public Transform Transform
@@ -43,9 +47,14 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
 
     }
 
-    // Update is called once per frame
+
+    public bool knockDown;
     void Update()
     {
+        if (knockDown == true)
+        {
+            return;
+        }
         
         if (arrived == false)
         {
@@ -72,7 +81,7 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
         }
         
 
-
+        // 화면에 클릭하는 곳으로 캐릭터 이동
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -122,8 +131,17 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
 
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
+        curHp = curHp - damage;
 
+        if (curHp /maxHp <= 0.1f) // 10%보다 체력이 낮을 때 
+        {
+            //행동 불능 + 적이 공격할 수 없는 상황 + 일정 시간이 지나면 다시 부활
+            agent.isStopped = true;
+            knockDown = true;
+
+
+        }
     }
 }

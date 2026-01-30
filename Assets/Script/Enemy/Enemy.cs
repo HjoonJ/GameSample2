@@ -49,8 +49,9 @@ public class Enemy : MonoBehaviour
         animEvent.shootingTimingListener = ShootingTiming;
     }
 
+    //¾À »ó¿¡ Á¸ÀçÇÏ°Ô µÊ! 
 
-    private void Start()
+    public void Spawn()
     {
         SetState(EnemyState.Idle);
 
@@ -79,7 +80,10 @@ public class Enemy : MonoBehaviour
 
         if (timer > dyingTime)
         {
-            Destroy(gameObject);
+            timer = 0f;
+            gameObject.SetActive(false);
+            
+            //Destroy(gameObject);
             GameManager.Instance.liveEnemyCount--;
 
             return;

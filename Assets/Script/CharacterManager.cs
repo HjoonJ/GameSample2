@@ -31,7 +31,15 @@ public class CharacterManager : MonoBehaviour
     {
         //가장 가까운 캐릭터 찾는 코드 들어가야함.
         
-        return curCharacters[0];
+        // curCharacters 담긴 캐릭터 중 기절하지 않은 캐릭터를 반환.
+        for (int i = 0; i < curCharacters.Count; i++)
+        {
+            if (curCharacters[i].knockDown == false)
+                return curCharacters[i];
+        }
+        return null;
+
+        
     }
 
 }
