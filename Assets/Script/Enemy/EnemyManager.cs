@@ -33,22 +33,42 @@ public class EnemyManager : MonoBehaviour, IChangedGameMode
         return enemy;
     }
 
-    IEnemyTarget[] enemyTargets;
+    
     public void ChangedGameMode(GameMode gm)
     {
         if (gm == GameMode.Battle)
         {
-            enemyTargets = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
-            .Where(mb => mb is IEnemyTarget)
-            .Cast<IEnemyTarget>()
-            .ToArray();
+            
         }
     }
 
-    public IEnemyTarget FindClosest()
+    public Enemy FindClosestEnemy(Vector3 pos)
     {
+
         
-        return enemyTargets[0];
+        float minDistance = float.MaxValue;
+        int enemyIdx = -1;
+
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (!enemies[i].gameObject.activeSelf)
+                continue;
+            
+            float dis = Vector2.Distance(enemies[i].transform.position, pos);
+            if (minDistance > dis)
+            {
+                minDistance = dis;
+                enemyIdx = i;
+            }
+        }
+
+        if (enemyIdx == -1)
+        {
+            return null;
+        }
+
+        return enemies[enemyIdx];
     }
 }
 

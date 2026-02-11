@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-
+    IEnemyTarget[] enemyTargets;
     public void SetMode(GameMode gm)
     {
         gameMode = gm;
@@ -140,6 +141,11 @@ public class GameManager : MonoBehaviour
         {
             changedGameModeListener[i].ChangedGameMode(gameMode);
         }
+        
+        enemyTargets = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+            .Where(mb => mb is IEnemyTarget)
+            .Cast<IEnemyTarget>()
+            .ToArray();
 
     }
 
@@ -153,6 +159,32 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public IEnemyTarget FindClosestTarget(Vector3 pos)
+    {
+
+        //가장 가까운 타겟 찾는거 (중요!!!!)
+
+        //지금까지 가장 가까운 타겟과의 거리가 ?
+        //그 가장 가까웠던 타겟이 배열에 몇번째 인덱스에 담겨있나?
+        float minDistance = float.MaxValue;
+        int targetIdx = -1;
+        for (int i = 0; i < enemyTargets.Length; i++)
+        {
+            float dis = Vector2.Distance(enemyTargets[i].Transform.position, pos);
+            if (minDistance > dis)
+            {
+                minDistance = dis;
+                targetIdx = i;
+            }
+        }
+
+        if (targetIdx == -1)
+        {
+            return null;
+        }
+
+        return enemyTargets[targetIdx];
+    }
 
 
 }

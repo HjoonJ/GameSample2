@@ -7,23 +7,23 @@ using UnityEngine.TextCore.Text;
 public class Enemy : MonoBehaviour
 {
     public EnemyState state;
-    public EnemyKind kind;
     
+    public EnemyData enemyData;
+    
+
+    // 고정수치들
+    public EnemyKind kind;
+
     public float maxHp;
     public float curHp;
 
-    
-    // 카운팅 횟수에 따른 적의 능력치 상승 (밀리 - 5% 레인지드 - 3%)
-    public float hpPercentUpgrade;
-    
-    public float moveSpeed;
-    
-    public float attackRange;
-    public float attackPower;
 
+    public float attackPower;
     // 어택스피드가 올라갈수록 느려짐.
-    public float attackSpeed;
+    
     public float attackCoolTime;
+
+
 
     public Animator animator;
     public EnemyAnimEvent animEvent;
@@ -57,9 +57,20 @@ public class Enemy : MonoBehaviour
 
         attackCoolTime = 0f;
 
-        maxHp = maxHp + maxHp * hpPercentUpgrade * GameManager.Instance.date;
-        
+        //오브젝트 풀링 - 재활용!
+        //오브젝트 풀링을 적용했을 때 문제가 발생!! - 초기값을 설정안하면 기존에 썼던 값이 너무 커져있을 수 있음.
+
+
+        // Hp 관련
+        maxHp = enemyData.initHp + enemyData.initHp * enemyData.hpPercentUpgrade * GameManager.Instance.date;
+
         curHp = maxHp;
+
+
+        // 공격력 관련
+        attackPower = enemyData.initAttackPower + enemyData.initAttackPower * enemyData.attackPercentUpgrade * GameManager.Instance.date;
+
+
 
 
     }
@@ -104,7 +115,7 @@ public class Enemy : MonoBehaviour
     }
     public void UpdateIdle()
     {
-        target = CharacterManager.Instance.FindClosest(transform.position);
+        target = GameManager.Instance.FindClosestTarget(transform.position);
 
 
         if (target != null)
@@ -123,7 +134,7 @@ public class Enemy : MonoBehaviour
         //적이 타겟(캐릭터)에 가까이 갔는지 확인
         float distance = Vector3.Distance(transform.position, target.Transform.position);
 
-        if (distance <= attackRange)
+        if (distance <= enemyData.attackRange)
         {
             animator.SetBool("Walking", false);
             SetState(EnemyState.Attack);
@@ -208,6 +219,17 @@ public class Enemy : MonoBehaviour
             target = other.GetComponent<IEnemyTarget>();
             Attack();
         }
+    }
+
+    public virtual void TakeDamage(float damage)
+    {
+        curHp -= damage;
+        if( curHp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+
+
     }
 
 }

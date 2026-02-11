@@ -5,7 +5,10 @@ using UnityEngine;
 public class Sena : Character
 {
     
-    public int attackDamage;
+    
+
+
+
 
 
 

@@ -278,6 +278,9 @@ MonoBehaviour:
   agent: {fileID: 0}
   arrived: 0
   des: {fileID: 0}
+  maxHp: 0
+  curHp: 0
+  knockDown: 0
 --- !u!195 &120859164
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -308,6 +311,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 310037008022337386, guid: a6875f3e16288f1499f8d642e0496d1e, type: 3}
+      propertyPath: initAttackPower
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6607122509191801761, guid: a6875f3e16288f1499f8d642e0496d1e, type: 3}
       propertyPath: m_Name
       value: RangedEnemy
@@ -390,6 +397,9 @@ MonoBehaviour:
   agent: {fileID: 0}
   arrived: 0
   des: {fileID: 0}
+  maxHp: 0
+  curHp: 0
+  knockDown: 0
 --- !u!195 &251641653
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -574,6 +584,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1910623982040346425, guid: 0318c0bdbacf8ae47a5635f65efce6db, type: 3}
+      propertyPath: enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: cc8b728ad2bd6ea448080040ca90b82a, type: 2}
+    - target: {fileID: 1910623982040346425, guid: 0318c0bdbacf8ae47a5635f65efce6db, type: 3}
+      propertyPath: initAttackPower
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5725797205288451142, guid: 0318c0bdbacf8ae47a5635f65efce6db, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
