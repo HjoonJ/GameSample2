@@ -170,6 +170,8 @@ public class GameManager : MonoBehaviour
         int targetIdx = -1;
         for (int i = 0; i < enemyTargets.Length; i++)
         {
+            // 공격 불가한 타겟은 제외시키기.
+            
             float dis = Vector2.Distance(enemyTargets[i].Transform.position, pos);
             if (minDistance > dis)
             {

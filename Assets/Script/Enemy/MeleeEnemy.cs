@@ -26,7 +26,7 @@ public class MeleeEnemy : Enemy
                 continue;
             }
 
-            target.TakeDamage(10);
+            target.TakeDamage(attackPower);
         }
     }
 

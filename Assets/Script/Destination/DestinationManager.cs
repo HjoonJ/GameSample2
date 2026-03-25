@@ -23,6 +23,28 @@ public class DestinationManager : MonoBehaviour
         //destinations = FindObjectsByType<Destination>(FindObjectsSortMode.InstanceID);
     }
 
+    public void Update()
+    {
+        if (GameManager.Instance.gameMode == GameMode.Normal)
+        {
+
+        }
+        //게임모드가 배틀로 전환 되었을 때
+        else 
+        {
+            
+
+
+
+        }
+
+
+
+
+
+
+    }
+
     List<Destination> canTakeDestinations = new List<Destination>();
 
     public Destination GetEmptyDestination()

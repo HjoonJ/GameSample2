@@ -87,18 +87,18 @@ public class Enemy : MonoBehaviour
     {
         attackCoolTime += Time.deltaTime;
 
-        timer += Time.deltaTime;
+        //timer += Time.deltaTime;
 
-        if (timer > dyingTime)
-        {
-            timer = 0f;
-            gameObject.SetActive(false);
+        //if (timer > dyingTime)
+        //{
+        //    timer = 0f;
+        //    gameObject.SetActive(false);
             
-            //Destroy(gameObject);
-            GameManager.Instance.liveEnemyCount--;
+        //    //Destroy(gameObject);
+        //    GameManager.Instance.liveEnemyCount--;
 
-            return;
-        }
+        //    return;
+        //}
 
         if (state == EnemyState.Idle)
         {
@@ -137,10 +137,12 @@ public class Enemy : MonoBehaviour
         if (distance <= enemyData.attackRange)
         {
             animator.SetBool("Walking", false);
+            agent.isStopped = true;
             SetState(EnemyState.Attack);
             
             return;
         }
+       
 
         if (target == null || !target.Transform.gameObject.activeSelf)
         {
@@ -212,12 +214,12 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Character"))
         {
             target = other.GetComponent<IEnemyTarget>();
-            Attack();
+            //Attack();
         }
         else if (other.CompareTag("Building"))
         {
             target = other.GetComponent<IEnemyTarget>();
-            Attack();
+            //Attack();
         }
     }
 

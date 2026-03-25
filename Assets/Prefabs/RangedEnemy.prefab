@@ -154,14 +154,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  enemyData: {fileID: 11400000, guid: cad7db7216a4094478906629c70971ca, type: 2}
   kind: 1
   maxHp: 10
   curHp: 10
-  hpPercentUpgrade: 3
-  moveSpeed: 1
-  attackRange: 2
   attackPower: 1
-  attackSpeed: 2
   attackCoolTime: 0
   animator: {fileID: 0}
   animEvent: {fileID: 0}

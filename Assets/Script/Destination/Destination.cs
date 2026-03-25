@@ -69,6 +69,14 @@ public class Destination : MonoBehaviour, IChangedGameMode
 
     public virtual void ChangedGameMode(GameMode gm)
     {
+        if (gm == GameMode.Battle)
+        {
+            if (isUsing== true)
+            {
+                Leave(character);
+                StopAllCoroutines();
+            }
+        }
 
     }
 }

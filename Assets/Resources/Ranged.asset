@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Ranged
   m_EditorClassIdentifier: 
   kind: 1
-  initHp: 0
-  hpPercentUpgrade: 0
-  moveSpeed: 0
-  attackRange: 0
-  initAttackPower: 0
-  attackPercentUpgrade: 0
-  attackSpeed: 0
+  initHp: 10
+  hpPercentUpgrade: 10
+  moveSpeed: 1
+  attackRange: 1
+  initAttackPower: 1
+  attackPercentUpgrade: 20
+  attackSpeed: 1

@@ -63,4 +63,18 @@ public class HomeDestination : Destination
         characterList.Remove(c);
     }
 
+    public override void ChangedGameMode(GameMode gm)
+    {
+        if (gm == GameMode.Battle)
+        {
+            for (int i = 0; i < characterList.Count; i++)
+            {
+                Leave(characterList[i]);
+            }
+
+            StopAllCoroutines();
+        }
+
+    }
+
 }
