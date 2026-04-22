@@ -158,6 +158,7 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
         // 등장 여부와 관계없이 대상 적이 없는 경우
         if (closestEnemy == null || closestEnemy.gameObject.activeSelf == false)
         {
+            
             agent.isStopped = true;
 
             closestEnemy = EnemyManager.Instance.FindClosestEnemy(transform.position);
@@ -187,7 +188,7 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
         if (distance <= attackRange)
         {
             // 공격시작. 한번 공격 후 공격 쿨타임 지나고 다시 한번 공격. 
-            LookAt();
+            LookAt(closestEnemy.transform);
 
             if (attackCoolTime >= attackSpeed)
             {
@@ -314,10 +315,10 @@ public class Character : MonoBehaviour, IChangedGameMode, IEnemyTarget
 
     }
 
-    public virtual void LookAt()
+    public virtual void LookAt(Transform tr)
     {
-        Debug.Log("Character1 LookAt()");
-        Vector3 vec = (closestEnemy.transform.position - transform.position);
+        //Debug.Log("Character1 LookAt()");
+        Vector3 vec = (tr.position - transform.position);
         Vector3 dir = vec.normalized;
         dir.y = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 10f);
